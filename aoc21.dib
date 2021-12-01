@@ -4,4 +4,16 @@
 
 #!csharp
 
-Console.WriteLine("Hello World!");
+string[] inputs = System.IO.File.ReadAllLines("input01.txt");
+
+int inc = 0;
+int prev = System.Int32.Parse(inputs[0]);
+int next;
+for(int i = 1; i < inputs.Count(); i++){
+    next = System.Int32.Parse(inputs[i]);
+    if(prev < next) {
+        inc++;
+    }
+    prev = next;
+}
+Console.WriteLine(inc);

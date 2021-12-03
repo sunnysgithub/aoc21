@@ -4,16 +4,37 @@
 
 #!csharp
 
-string[] inputs = System.IO.File.ReadAllLines("input01.txt");
+try {
+    int prev, inc = 0;
+    int a, b, c;
+    using(System.IO.StreamReader sr = new System.IO.StreamReader("input01.txt"))
+    {
+        // anfang
+        a = System.Int32.Parse(sr.ReadLine());
+        b = System.Int32.Parse(sr.ReadLine());
+        c = System.Int32.Parse(sr.ReadLine());
 
-int inc = 0;
-int prev = System.Int32.Parse(inputs[0]);
-int next;
-for(int i = 1; i < inputs.Count(); i++){
-    next = System.Int32.Parse(inputs[i]);
-    if(prev < next) {
-        inc++;
+        prev = a + b + c;
+
+        do {
+            // schritt
+            a = b;
+            b = c;
+            c = System.Int32.Parse(sr.ReadLine());
+            
+            if ( (a + b + c) > prev )
+            {
+                inc++;
+            }
+
+            prev = a + b + c;
+
+        } while(sr.Peek() >= 0); // schluss
     }
-    prev = next;
+
+    Console.WriteLine($"Increased {inc} times");
+} 
+catch(Exception ex) 
+{
+    Console.WriteLine(ex);
 }
-Console.WriteLine(inc);

@@ -2,6 +2,10 @@
 
 # Advent Of Code 2021
 
+#!markdown
+
+## Day 1
+
 #!csharp
 
 try {
@@ -35,6 +39,96 @@ try {
     Console.WriteLine($"Increased {inc} times");
 } 
 catch(Exception ex) 
+{
+    Console.WriteLine(ex);
+}
+
+#!markdown
+
+## Day 2
+
+#!csharp
+
+int horizontal = 0;
+int depth = 0;
+
+char command;
+int unit;
+
+string line;
+
+try {
+    using(System.IO.StreamReader sr = new System.IO.StreamReader("input02.txt"))
+    {
+        do {
+            line = sr.ReadLine();
+            command = line[0];
+            unit = line[line.Length-1] - 48; // ascii numbers starten bei 48
+
+            switch(command) {
+                case 'd': // down
+                    depth += unit;
+                    break;
+                case 'f': // forward
+                    horizontal += unit;
+                    break;
+                case 'u': // up
+                    depth -= unit;
+                    break;
+                default:
+                    Console.Write($"{command} is an invalid command");
+                    break;
+            }
+        } while (sr.Peek() >= 0);
+    }
+
+    Console.WriteLine($"Result is {horizontal * depth}");
+}
+catch(Exception ex)
+{
+    Console.WriteLine(ex);
+}
+
+#!csharp
+
+int horizontal = 0;
+int depth = 0;
+int aim = 0;
+
+char command;
+int unit;
+
+string line;
+
+try {
+    using(System.IO.StreamReader sr = new System.IO.StreamReader("input02.txt"))
+    {
+        do {
+            line = sr.ReadLine();
+            command = line[0];
+            unit = line[line.Length-1] - 48; // ascii numbers starten bei 48
+
+            switch(command) {
+                case 'd': // down
+                    aim += unit;
+                    break;
+                case 'u': // up
+                    aim -= unit;
+                    break;
+                case 'f': // forward
+                    horizontal += unit;
+                    depth += (aim * unit);
+                    break;
+                default:
+                    Console.Write($"{command} is an invalid command");
+                    break;
+            }
+        } while (sr.Peek() >= 0);
+    }
+
+    Console.WriteLine($"Result is {horizontal * depth}");
+}
+catch(Exception ex)
 {
     Console.WriteLine(ex);
 }

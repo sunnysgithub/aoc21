@@ -132,3 +132,52 @@ catch(Exception ex)
 {
     Console.WriteLine(ex);
 }
+
+#!markdown
+
+## Day 3
+
+#!csharp
+
+string line;
+
+int[] arr = null;
+int length;
+
+int gamma = 0;
+int epsilon = 0;
+
+try {
+    using(System.IO.StreamReader sr = new System.IO.StreamReader("input03.txt"))
+    {
+        do {
+            line = sr.ReadLine();
+
+            if(arr == null){
+                length = line.Count();
+                arr = new int[length];
+            }
+
+            for(int i = 0; i < length; i++) {
+                arr[i] += (line[i] - 48) == 1 ? 1 : -1;
+            }      
+        } while (sr.Peek() >= 0);
+
+        for(int i = 0; i < length; i++) {
+            arr[i] = arr[i] >= 0 ? 1 : 0;
+        }
+
+        int b;
+        for(int i = 0, j = length-1; i < length; i++, j--) {
+            b = (int)System.Math.Pow(2, i);
+            gamma += arr[j] * b;
+            epsilon += (arr[j]^1) * b;
+        }
+
+        Console.WriteLine($"Result is {gamma*epsilon}");
+    }
+}
+catch(Exception ex)
+{
+    Console.WriteLine(ex);
+}
